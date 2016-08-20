@@ -9,7 +9,8 @@
 		Version: 1.0
 	*/
 	
-	
+//This function creates the widget	
+
 	class ishabnam_portfolio_post extends WP_Widget {
 		function __construct() {
 			parent::__construct(false, $name = __('Portfolio Posts'));
@@ -21,6 +22,8 @@
 		
 		
 		}
+		
+//This function helps determine exactly what the widget is going to contain
 		function widget($args, $instace) {
 	?>
 				<div class="widget portfolio-posts one-third column">
@@ -55,7 +58,8 @@ add_action( 'widgets_init' , create_function('',
 		wp_enqueue_style('plugin-style', plugins_url('/style.css', __FILE__));
 	}
 	add_action( 'wp_enqueue_scripts', 'my_plugin_styles' );
-	
+
+//This function is to create the custom post type as a page 
 	
 	function ishabnam_register_post_type(){	
 		
@@ -102,7 +106,7 @@ add_action( 'widgets_init' , create_function('',
 	}
 	add_action( 'init', 'ishabnam_register_post_type' );
 	
-				
+//This function allows to use the Category option to sort out posts on the custom post type page				
 	function ishabnam_register_taxonomy(){
 	
 		$singular = 'Categories';
@@ -146,19 +150,15 @@ add_action( 'widgets_init' , create_function('',
 	}
 	add_action( 'init' , 'ishabnam_register_taxonomy');
 
+//This function creates a shortcode to make the thumbnail of post appear at the top of the post in both, list of posts and when a single post is clicked
+
 	function post_thumbnail_shortcode($atts, $content= null ) {
 	
 		$atts['size'] = 'thumbnail';
 
 		echo '<span class="post_thumbnail '.$atts['class'].'">'.get_the_post_thumbnail(null,$atts['size']).'</span>';
 	}
-
-
-	add_shortcode('post_thumbnail', 'post_thumbnail_shortcode');
 	
-		
-
-
+add_shortcode('post_thumbnail', 'post_thumbnail_shortcode');
 	
-
 ?>
