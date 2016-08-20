@@ -9,6 +9,46 @@
 		Version: 1.0
 	*/
 	
+	
+	class ishabnam_portfolio_post extends WP_Widget {
+		function __construct() {
+			parent::__construct(false, $name = __('Portfolio Posts'));
+		}
+		function form() {
+		
+		}
+		function update() {
+		
+		
+		}
+		function widget($args, $instace) {
+	?>
+				<div class="widget portfolio-posts one-third column">
+					<h2>Featured Post from Portfolio</h2>
+					<ul>
+						<?php
+							$query_args = array(
+									'post_type'			 => 'portfolio',
+									'posts_per_page'	 => '1',
+									'orderby'			 => 'rand',
+								);
+							$query = new WP_Query($query_args);
+								while($query->have_posts()) : $query->the_post();
+						?>
+							<li><a href="<?php the_permalink(); ?>"><?php the_title(); ?><?php echo get_the_post_thumbnail(); ?></a></li>
+						<?php endwhile; ?>
+					</ul>
+				</div>
+	<?php
+		
+		}
+	
+	}
+
+add_action( 'widgets_init' , create_function('',
+	'return register_widget("ishabnam_portfolio_post");'));
+	
+	
 //enqueue style.css file for plugin
 	
 	function my_plugin_styles(){
@@ -106,5 +146,19 @@
 	}
 	add_action( 'init' , 'ishabnam_register_taxonomy');
 
+	function post_thumbnail_shortcode($atts, $content= null ) {
 	
+		$atts['size'] = 'thumbnail';
+
+		echo '<span class="post_thumbnail '.$atts['class'].'">'.get_the_post_thumbnail(null,$atts['size']).'</span>';
+	}
+
+
+	add_shortcode('post_thumbnail', 'post_thumbnail_shortcode');
+	
+		
+
+
+	
+
 ?>
