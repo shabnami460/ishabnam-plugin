@@ -24,7 +24,7 @@
 		function widget($args, $instace) {
 	?>
 				<div class="widget portfolio-posts one-third column">
-					<h2>Featured Post from Portfolio</h2>
+					<h2>Featured Post</h2>
 					<ul>
 						<?php
 							$query_args = array(
@@ -35,7 +35,7 @@
 							$query = new WP_Query($query_args);
 								while($query->have_posts()) : $query->the_post();
 						?>
-							<li><a href="<?php the_permalink(); ?>"><?php the_title(); ?><?php echo get_the_post_thumbnail(); ?></a></li>
+							<li><a href="<?php the_permalink(); ?>"><?php echo get_the_post_thumbnail(); ?><?php the_title(); ?></a></li>
 						<?php endwhile; ?>
 					</ul>
 				</div>
